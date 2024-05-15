@@ -21,9 +21,7 @@ public class Drug {
     public String getName() { return name; }
     public double getPrice() { return price; }
     public String getCategory() { return category; }
-    public double getTotalPrice()
-    {
-        return totalPrice;}
+    public double getTotalPrice() { return totalPrice; }
 
     public int getAvailableQuantity() { return availableQuantity; }
     public void setAvailableQuantity(int availableQuantity) { this.availableQuantity = availableQuantity; }

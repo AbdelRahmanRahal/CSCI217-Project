@@ -13,15 +13,14 @@ public class Pharmacy {
 
     public boolean addDrug(Drug drug) {
         if (isValidDrug(drug)) {
-            if ( drugs.size()< capacity) {
+            if (drugs.size() < capacity) {
                 drugs.add(drug);
                 System.out.println("Drug added successfully.");
-            } else {
+                return true;
+            } else
                 System.out.println("Pharmacy is full. Cannot add more drugs.");
-            }
-        } else {
+        } else
             System.out.println("Invalid drug details.");
-        }
         return false;
     }
 
@@ -59,14 +58,14 @@ public class Pharmacy {
     public double getTotalSales() {
         double totalSales = 0;
         for (Drug drug : drugs) {
-            totalSales += drug.getPrice() * drug.getAvailableQuantity(); // Assuming getAvailableQuantity() returns the quantity of the drug
+            totalSales += drug.getPrice() * drug.getAvailableQuantity();
         }
         return totalSales;
     }
 
 
     private boolean isValidDrug(Drug drug) {
-        return drug.getId()!= null &&!drug.getName().isEmpty() &&
+        return drug.getId() != null && !drug.getName().isEmpty() &&
                 drug.getPrice() >= 0 && drug.getCategory()!= null &&
                 drug.getAvailableQuantity() > 0;
     }
