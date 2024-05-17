@@ -4,24 +4,31 @@ import java.util.List;
 public class Pharmacy {
     private List<Drug> drugs;
     private int capacity;
+    private List<Transaction> transactions;
 
     public Pharmacy(int capacity) {
-        this.capacity = capacity;
         this.drugs = new ArrayList<>();
+        this.capacity = capacity;
+        this.transactions = new ArrayList<>();
     }
 
+    public List<Drug> getDrugs() { return drugs; }
 
-    public boolean addDrug(Drug drug) {
-        if (isValidDrug(drug)) {
-            if (drugs.size() < capacity) {
-                drugs.add(drug);
-                System.out.println("Drug added successfully.");
-                return true;
-            } else
-                System.out.println("Pharmacy is full. Cannot add more drugs.");
-        } else
-            System.out.println("Invalid drug details.");
-        return false;
+    public List<Transaction> getTransactions() { return transactions; }
+
+    public int addDrug(Drug drug) {
+        // If a drug with the given ID already exists
+        if (findDrugById(drug.getId()) != null)
+            return -2;
+        // If invalid details for the drug are passed
+        if (!isValidDrug(drug))
+            return -1;
+        // If the pharmacy capacity is full
+        if (drugs.size() + drug.getAvailableQuantity() >= capacity )
+            return -3;
+
+        drugs.add(drug);
+        return 0;
     }
 
     public boolean removeDrug(String id) {
@@ -40,42 +47,36 @@ public class Pharmacy {
     }
 
     public void placeOrder(String id, int quantity) {
-        try {
-            Drug drug = findDrugById(id);
-            if (drug!= null && drug.getAvailableQuantity() >= quantity) {
-                double totalPrice = drug.getPrice() * quantity;
-                System.out.println("Total price: " + totalPrice);
-                drug.setAvailableQuantity(drug.getAvailableQuantity() - quantity);
-                System.out.println("Order placed successfully.");
-            } else {
-                System.out.println("Drug not available or insufficient quantity.");
-            }
-        } catch (Exception e) {
-            System.out.println("An error occurred: " + e.getMessage());
-        }
+        Drug drug = findDrugById(id);
+
+        double price = drug.getPrice();
+        if ("cosmetics".equalsIgnoreCase(drug.getCategory()))
+            price *= 1.2; // Apply 20% surcharge
+
+        double totalPrice = price * quantity;
+        drug.setAvailableQuantity(drug.getAvailableQuantity() - quantity);
+        transactions.add(new Transaction(id, drug.getName(), quantity, totalPrice));
     }
 
+
     public double getTotalSales() {
-        double totalSales = 0;
-        for (Drug drug : drugs) {
-            totalSales += drug.getPrice() * drug.getAvailableQuantity();
-        }
-        return totalSales;
+        return transactions.stream().mapToDouble(Transaction::getTotalPrice).sum();
     }
 
 
     private boolean isValidDrug(Drug drug) {
-        return drug.getId() != null && !drug.getName().isEmpty() &&
-                drug.getPrice() >= 0 && drug.getCategory()!= null &&
+        return !drug.getId().isEmpty() && !drug.getName().isEmpty() &&
+                drug.getPrice() >= 0 && !drug.getCategory().isEmpty() &&
                 drug.getAvailableQuantity() > 0;
     }
 
-    public Drug findDrugById(String id) throws Exception {
+    public Drug findDrugById(String id) {
         return drugs.stream()
                 .filter(d -> d.getId().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new Exception("Drug not found."));
+                .orElse(null); // Return null if no matching drug is found
     }
+
     public int getCurrentCapacity() {
         return drugs.size(); // Return the current number of drugs in the pharmacy
     }
