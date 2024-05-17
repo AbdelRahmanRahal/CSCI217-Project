@@ -8,6 +8,8 @@
     <properties>
       <alignmentX value="0.5"/>
       <alignmentY value="0.5"/>
+      <background color="-1643018"/>
+      <foreground color="-1186081"/>
     </properties>
     <border type="none"/>
     <children>
@@ -17,6 +19,7 @@
         </constraints>
         <properties>
           <font name="Bahnschrift" size="22" style="1"/>
+          <foreground color="-16179930"/>
           <text value="Pharmacy Management Application"/>
         </properties>
       </component>
@@ -37,7 +40,9 @@
           </grid>
         </constraints>
         <properties>
+          <background color="-16170940"/>
           <font name="Bahnschrift" size="14"/>
+          <foreground color="-1186081"/>
           <text value="Add drug"/>
         </properties>
       </component>
@@ -48,7 +53,9 @@
           </grid>
         </constraints>
         <properties>
+          <background color="-16170940"/>
           <font name="Bahnschrift" size="14"/>
+          <foreground color="-1186081"/>
           <text value="Remove drug"/>
         </properties>
       </component>
@@ -59,7 +66,9 @@
           </grid>
         </constraints>
         <properties>
+          <background color="-16170940"/>
           <font name="Bahnschrift" size="14"/>
+          <foreground color="-1186081"/>
           <text value="Place an order"/>
         </properties>
       </component>
@@ -70,7 +79,9 @@
           </grid>
         </constraints>
         <properties>
+          <background color="-16170940"/>
           <font name="Bahnschrift" size="14"/>
+          <foreground color="-1186081"/>
           <text value="View sales"/>
         </properties>
       </component>
