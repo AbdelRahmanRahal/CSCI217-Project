@@ -6,6 +6,7 @@
  */
 import javax.swing.*;
 import java.util.List;
+import java.util.Scanner;
 
 public class PharmacyApp extends JFrame {
     private Pharmacy pharmacy;
@@ -16,7 +17,7 @@ public class PharmacyApp extends JFrame {
     private JButton viewSalesButton;
 
 
-    public PharmacyApp() {
+    public PharmacyApp(int capacity) {
         pharmacy = new Pharmacy(100);
 
         try {
@@ -70,6 +71,18 @@ public class PharmacyApp extends JFrame {
         });
     }
     public static void main(String[] args) {
-        new PharmacyApp();
+        Scanner keyboard = new Scanner(System.in);
+        int capacity;
+        System.out.print("Enter the capacity of the pharmacy: ");
+        while (true) {
+            try {
+                capacity = keyboard.nextInt();
+                capacity = Math.abs(capacity);
+                break;
+            } catch (Exception e) {
+                System.out.print("Invalid value, please try again.");
+            }
+        }
+        new PharmacyApp(capacity);
     }
 }
