@@ -49,7 +49,7 @@ public class PharmacyWindow extends JFrame {
 
         viewSalesButton.addActionListener(e -> {
             List<Transaction> transactions = pharmacy.getTransactions();
-            StringBuilder transactionHistory = new StringBuilder("Transaction History:\n\n");
+            StringBuilder transactionHistory = new StringBuilder("Total sales:\n\n");
             double totalSales = 0.0;
 
             for (Transaction transaction : transactions) {
