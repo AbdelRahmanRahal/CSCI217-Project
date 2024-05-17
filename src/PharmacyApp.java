@@ -4,7 +4,10 @@
     Mahmoud Mohamed — 221001313
     Nour Elsharkawy — 221001458
  */
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -29,6 +32,11 @@ public class PharmacyApp extends JFrame {
             e.printStackTrace();
         }
 
+        try {
+            setIconImage(ImageIO.read(new File("src/icon.png")));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         setContentPane(mainPanel);
         setTitle("Pharmacy App");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
