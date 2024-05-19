@@ -24,26 +24,17 @@ public class Pharmacy {
         if (!isValidDrug(drug))
             return -1;
         // If the pharmacy capacity is full
-        if (drugs.size() + drug.getAvailableQuantity() >= capacity )
+        if (drugs.size() + drug.getAvailableQuantity() > capacity )
             return -3;
 
         drugs.add(drug);
         return 0;
     }
 
-    public boolean removeDrug(String id) {
-        try {
-            Drug drugToRemove = findDrugById(id);
-            if (drugToRemove!= null) {
-                drugs.remove(drugToRemove);
-                System.out.println("Drug removed successfully.");
-            } else {
-                System.out.println("Drug not found.");
-            }
-        } catch (Exception e) {
-            System.out.println("An error occurred: " + e.getMessage());
-        }
-        return false;
+    public void removeDrug(String id) {
+        Drug drugToRemove = findDrugById(id);
+        if (drugToRemove!= null)
+            drugs.remove(drugToRemove);
     }
 
     public void placeOrder(String id, int quantity) {
