@@ -69,9 +69,15 @@ public class AddDrugDialog extends JDialog {
         decimalFormat.setMinimumFractionDigits(2);
         decimalFormat.setMaximumFractionDigits(2);
 
-        idField.setFormatterFactory(new DefaultFormatterFactory(new NumberFormatter(NumberFormat.getIntegerInstance())));
+        DecimalFormat intFormat = new DecimalFormat("###0");
+        intFormat.setParseIntegerOnly(true);
+
+        NumberFormatter unsignedFormatter = new NumberFormatter(intFormat);
+        unsignedFormatter.setMinimum(0);
+
+        idField.setFormatterFactory(new DefaultFormatterFactory(unsignedFormatter));
         priceField.setFormatterFactory(new DefaultFormatterFactory(new NumberFormatter(decimalFormat)));
-        quantityField.setFormatterFactory(new DefaultFormatterFactory(new NumberFormatter(NumberFormat.getIntegerInstance())));
+        quantityField.setFormatterFactory(new DefaultFormatterFactory(unsignedFormatter));
     }
 
     private void onOK() {

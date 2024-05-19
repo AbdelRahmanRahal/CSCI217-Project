@@ -3,6 +3,7 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 public class RemoveDrugDialog extends JDialog {
@@ -58,7 +59,14 @@ public class RemoveDrugDialog extends JDialog {
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
-        idField.setFormatterFactory(new DefaultFormatterFactory(new NumberFormatter(NumberFormat.getIntegerInstance())));
+
+        DecimalFormat intFormat = new DecimalFormat("###0");
+        intFormat.setParseIntegerOnly(true);
+
+        NumberFormatter unsignedFormatter = new NumberFormatter(intFormat);
+        unsignedFormatter.setMinimum(0);
+
+        idField.setFormatterFactory(new DefaultFormatterFactory(unsignedFormatter));
     }
 
     private void onOK() {
