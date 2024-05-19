@@ -21,7 +21,7 @@ public class PharmacyApp extends JFrame {
 
 
     public PharmacyApp(int capacity) {
-        pharmacy = new Pharmacy(100);
+        pharmacy = new Pharmacy(capacity);
 
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");  // Windows Look and Feel
